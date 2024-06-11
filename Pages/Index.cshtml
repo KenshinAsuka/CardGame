@@ -1,0 +1,105 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+    var arr = new Constants.Array();
+    var randCards = arr.GetRandomCards();
+    var oriCards = arr.GetOriginalCards();
+
+    int total_p1 = 0;
+    int total_p2 = 0;
+    int total_p3 = 0;
+    int total_p4 = 0;
+    string results = "";
+    List<string> l1 = new List<string>();
+    List<string> l2 = new List<string>();
+    List<string> l3 = new List<string>();
+    List<string> l4 = new List<string>();
+
+    for(int i=0; i<13; i++)
+    {
+        l1.Add(randCards[i]);
+
+        var charArr = arr.SplitChar(randCards[i].ToCharArray());
+    }
+
+    total_p1 = arr.CalculatePoints(l1);
+
+    for (int j = 13; j < 26; j++)
+    {
+        l2.Add(randCards[j]);
+
+        var charArr = arr.SplitChar(randCards[j].ToCharArray());
+
+
+    }
+
+    total_p2 = arr.CalculatePoints(l2);
+
+    for (int k = 26; k < 39; k++)
+    {
+        l3.Add(randCards[k]);
+
+        var charArr = arr.SplitChar(randCards[k].ToCharArray());
+
+    }
+
+    total_p3 = arr.CalculatePoints(l3);
+
+    for (int l = 39; l < 52; l++)
+    {
+        l4.Add(randCards[l]);
+
+        var charArr = arr.SplitChar(randCards[l].ToCharArray());
+
+    }
+
+    total_p4 = arr.CalculatePoints(l4);
+
+    results = arr.GetWinner(total_p1, total_p2, total_p3, total_p4);
+}
+
+<div class="text-center">
+    <table>
+    <tr>
+            <td>Player 1 :</td>
+
+       
+    @foreach(string text in l1)
+    {
+        <td>@text</td>;
+    }
+        <td>Points : @total_p1</td>
+     </tr>
+     <tr>
+    <td>Player 2 : </td>
+    @foreach (string text2 in l2)
+    {
+
+        <td>@text2 &nbsp;</td>;
+    }
+            <td>Points : @total_p2</td>
+    </tr>
+    <tr>
+    <td>Player 3 :</td>
+    @foreach (string text3 in l3)
+    {
+
+        <td>@text3 &nbsp;</td>
+        ;
+    }
+            <td>Points : @total_p3</td>
+    </tr>
+    <tr>
+    <td>Player 4 :</td>
+    @foreach (string text4 in l4)
+    {
+
+        <td>@text4 &nbsp;</td>
+        ;
+    }
+            <td>Points : @total_p4</td>
+    </tr>
+    </table>
+    <span>@results</span>
+</div>
